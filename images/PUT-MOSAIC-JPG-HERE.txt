@@ -1,0 +1,5 @@
+Put the artwork here as mosaic.jpg (largest resolution available).
+Optional: portrait.jpg for the artist photo.
+
+The site loads images/mosaic.jpg — until that file exists the hero and the
+three detail crops will be blank.
