@@ -6,9 +6,9 @@ Static single-page site. No build step, no dependencies.
 
 ```
 index.html                 the whole site (HTML + CSS + JS inline)
-images/mosaic.jpg          hero — the mosaic itself. NOT included: keep the
-                           file already in your repo, or replace it with a
-                           higher-resolution export.
+images/mosaic.jpg          hero — the mosaic without its frame. A crop of your
+                           own file; replace with a higher-resolution export
+                           if you have one.
 images/mosaic-framed.jpg   the framed work photographed on the wall (included)
 ```
 
