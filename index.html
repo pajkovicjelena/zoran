@@ -14,26 +14,34 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#2b2724; --bg-deep:#221f1c; --line:#413c37;
+    --bg:#2b2724; --line:#413c37; --line-soft:#38332f;
     --text:#eae5df; --text-dim:#b3aba2; --text-mute:#8b8377;
     --accent:#c79246; --accent-hi:#dfae6a;
     --serif:'Cormorant Garamond',Georgia,serif;
     --sans:'Jost',system-ui,sans-serif;
+    --measure:1240px;
+    --gutter:clamp(22px,4vw,64px);
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
   img{display:block;max-width:100%}
-  .wrap{max-width:1500px;margin:0 auto}
-  .pad{padding:0 44px}
-  .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-mute)}
+  p{margin:0}
 
-  header{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:26px 64px}
+  .shell{max-width:var(--measure);margin:0 auto;padding:0 var(--gutter)}
+  .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-mute)}
+  .eyebrow.accent{color:var(--accent)}
+
+  /* header */
+  header{position:relative;z-index:2}
+  header .shell{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:26px;padding-bottom:26px}
   .brand{font-family:var(--serif);font-size:17px;letter-spacing:.1em;text-transform:uppercase}
-  .enquire-link{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid rgba(199,146,70,.5);padding-bottom:2px;transition:color .2s}
+  .enquire-link{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+                border-bottom:1px solid rgba(199,146,70,.5);padding-bottom:2px;transition:color .2s}
   .enquire-link:hover{color:var(--accent-hi)}
 
+  /* hero */
   .hero{position:relative;overflow:hidden;cursor:crosshair}
   .hero img{width:100%;height:min(101vh,884px);object-fit:cover;object-position:50% 50%}
   .lens{position:absolute;border-radius:50%;pointer-events:none;opacity:0;transition:opacity .18s;
@@ -41,61 +49,57 @@
         box-shadow:0 0 0 1px rgba(255,255,255,.85),0 0 0 2px rgba(0,0,0,.35),0 18px 40px -12px rgba(0,0,0,.6)}
   .zoom.lens-on .lens{opacity:1}
   .scrim{position:absolute;inset:0;pointer-events:none;
-         background:linear-gradient(to top,var(--bg) 0%,rgba(43,39,36,.55) 26%,transparent 58%)}
-  .hero-caption{position:absolute;left:64px;right:64px;bottom:40px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px;pointer-events:none}
-  .hero-caption h1{margin:0;font-family:var(--serif);font-weight:300;font-size:clamp(34px,5.4vw,64px);line-height:1.02;color:#fbf8f4;max-width:18ch;text-wrap:pretty}
-  .hero-meta{font-size:12px;letter-spacing:.1em;text-transform:uppercase;line-height:2.1;color:var(--text-dim);text-align:right}
-  .hint{padding:16px 64px 0;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mute)}
+         background:linear-gradient(to top,var(--bg) 0%,rgba(43,39,36,.5) 24%,transparent 56%)}
+  .hero-caption{position:absolute;left:0;right:0;bottom:0;padding-bottom:44px;pointer-events:none}
+  .hero-caption .shell{display:flex;justify-content:space-between;align-items:flex-end;gap:48px}
+  .hero-caption h1{margin:0;font-family:var(--serif);font-weight:300;font-size:clamp(38px,5vw,72px);
+                   line-height:1.0;color:#fbf8f4;max-width:16ch;text-wrap:pretty}
+  .hero-meta{font-size:12px;letter-spacing:.1em;text-transform:uppercase;line-height:2.1;color:var(--text-dim);text-align:right;flex:none}
+  .hint{padding-top:16px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-mute)}
 
-  main{padding:0;display:flex;flex-direction:column;gap:0}
-  .band{padding:76px 64px;max-width:1620px;margin:0 auto;width:100%;box-sizing:border-box}
-  .lede{margin:0;font-family:var(--serif);font-weight:300;font-size:clamp(26px,3.4vw,44px);line-height:1.36;color:#f0ebe4;max-width:30ch;text-wrap:pretty}
+  /* bands */
+  section{padding:clamp(56px,7vw,104px) 0}
+  section + section > .shell{border-top:1px solid var(--line-soft);padding-top:clamp(56px,7vw,104px)}
+  section + section{padding-top:0}
 
-  .specs{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
-         border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .spec{background:var(--bg);padding:38px 4vw;display:flex;flex-direction:column;gap:10px}
-  .spec-k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
-  .spec-v{font-family:var(--serif);font-size:clamp(22px,2.4vw,30px);color:#f4f0ea;line-height:1.1}
-  .spec-u{font-size:12px;color:var(--text-dim)}
+  /* intro: statement + worksheet */
+  .intro-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.75fr);gap:clamp(40px,6vw,96px);align-items:start}
+  .lede{font-family:var(--serif);font-weight:300;font-size:clamp(27px,3.1vw,42px);line-height:1.32;
+        color:#f2ede6;max-width:26ch;text-wrap:pretty}
+  .sheet{display:flex;flex-direction:column;padding-top:8px}
+  .row{display:flex;justify-content:space-between;align-items:baseline;gap:24px;
+       padding:15px 0;border-top:1px solid var(--line)}
+  .row:last-of-type{border-bottom:1px solid var(--line)}
+  .row dt{font-size:12px;letter-spacing:.08em;color:var(--text-mute)}
+  .row dd{margin:0;font-family:var(--serif);font-size:20px;color:#f4f0ea;text-align:right}
+  .sheet .eyebrow{padding-bottom:14px}
 
-  .cols{display:grid;grid-template-columns:1fr 1fr;gap:9vw;align-items:start}
-  .about p{margin:0;font-size:15px;line-height:1.95;color:var(--text-dim);max-width:52ch;text-wrap:pretty}
-  .about{display:flex;flex-direction:column;gap:18px}
-  .portrait{display:flex;gap:14px;align-items:center;margin-top:6px}
-  .portrait .ph{width:68px;height:68px;flex:none;background:repeating-linear-gradient(135deg,#3a352f 0 5px,#443e37 5px 10px)}
+  /* artist + acquire */
+  .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(40px,6vw,96px);align-items:start}
+  .stack{display:flex;flex-direction:column;gap:20px}
+  .body-copy{font-size:15px;line-height:1.9;color:var(--text-dim);max-width:46ch;text-wrap:pretty}
+  .portrait{display:flex;gap:16px;align-items:center;margin-top:8px}
+  .portrait .ph{width:72px;height:72px;flex:none;background:repeating-linear-gradient(135deg,#3a352f 0 5px,#443e37 5px 10px)}
   .portrait small{font-size:11px;line-height:1.7;color:var(--text-mute)}
-
-  .acquire{display:flex;flex-direction:column;gap:20px;border-left:1px solid var(--line);padding-left:9vw}
-  .acquire .pitch{font-family:var(--serif);font-weight:300;font-size:clamp(24px,2.2vw,32px);line-height:1.4;color:var(--text);text-wrap:pretty}
+  .pitch{font-family:var(--serif);font-weight:300;font-size:clamp(24px,2.3vw,32px);line-height:1.38;color:#f2ede6;max-width:24ch;text-wrap:pretty}
   .btn{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--accent);color:#241f19;
-       padding:17px 22px;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;transition:background .2s}
+       padding:18px 24px;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;transition:background .2s;max-width:420px}
   .btn:hover{background:var(--accent-hi)}
-  .contact{font-size:12px;line-height:1.8;color:var(--text-dim)}
+  .contact{font-size:13px;line-height:1.8;color:var(--text-dim)}
 
-  .framed{display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1fr);gap:7vw;align-items:center}
+  /* framed work */
+  .framed{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1fr);gap:clamp(40px,6vw,96px);align-items:center}
   .framed-img{position:relative;overflow:hidden;cursor:crosshair;box-shadow:0 40px 90px -30px rgba(0,0,0,.8)}
   .framed-img img{width:100%;height:auto}
-  .framed-text{display:flex;flex-direction:column;gap:18px}
-  .framed-text .pitch{font-family:var(--serif);font-weight:300;font-size:clamp(28px,2.6vw,40px);line-height:1.35;color:#f4f0ea;max-width:24ch;text-wrap:pretty}
-  .framed-text p{margin:0;font-size:15px;line-height:1.9;color:var(--text-dim);max-width:48ch;text-wrap:pretty}
-  .framed-text small{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mute)}
-  .eyebrow.accent{color:var(--accent)}
 
-  footer{display:flex;justify-content:space-between;gap:20px;padding:26px 64px;border-top:1px solid var(--line);
-         font-size:11px;letter-spacing:.08em;color:var(--text-mute)}
+  footer{border-top:1px solid var(--line-soft)}
+  footer .shell{display:flex;justify-content:space-between;gap:20px;padding-top:26px;padding-bottom:26px;
+                font-size:11px;letter-spacing:.08em;color:var(--text-mute)}
 
-  @media (max-width:860px){
-    header,.hint,footer,.band{padding-left:22px;padding-right:22px}
-    .band{padding-top:48px;padding-bottom:48px}
-    .spec{padding:26px 22px}
-    .cols,.framed{gap:32px}
-    .acquire{padding-left:0}
-    .hero-caption{left:22px;right:22px;bottom:22px;flex-direction:column;align-items:flex-start;gap:14px}
+  @media (max-width:820px){
+    .hero-caption .shell{flex-direction:column;align-items:flex-start;gap:16px}
     .hero-meta{text-align:left}
-    .specs{grid-template-columns:repeat(2,1fr)}
-    .cols{grid-template-columns:1fr;gap:40px}
-    .acquire{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:32px}
-    .framed{grid-template-columns:1fr;gap:32px}
+    .intro-grid,.cols,.framed{grid-template-columns:1fr}
     .hero,.framed-img{cursor:default}
   }
 </style>
@@ -103,8 +107,10 @@
 <body>
 
 <header>
-  <div class="brand">Dorien Gay Rosenthall</div>
-  <a class="enquire-link" href="#acquire">Enquire</a>
+  <div class="shell">
+    <div class="brand">Dorien Gay Rosenthall</div>
+    <a class="enquire-link" href="#acquire">Enquire</a>
+  </div>
 </header>
 
 <div class="hero zoom" data-zoom="6" data-size="250">
@@ -112,55 +118,67 @@
   <div class="lens"></div>
   <div class="scrim"></div>
   <div class="hero-caption">
-    <h1>One Vision,<br>5,000 Stories</h1>
-    <div class="hero-meta">2025<br>Photographic mosaic<br>120 × 180 cm</div>
+    <div class="shell">
+      <h1>One Vision,<br>5,000 Stories</h1>
+      <div class="hero-meta">2025<br>Photographic mosaic<br>120 × 180 cm</div>
+    </div>
   </div>
 </div>
-<div class="hint">Move across the image to magnify</div>
+<div class="shell hint">Move across the image to magnify</div>
 
 <main>
-  <div class="band">
-  <p class="lede">Five thousand photographs, each complete in itself, assembled until they resolve into a single image.</p>
-  </div>
-
-  <section class="specs">
-    <div class="spec"><span class="spec-k">Made of</span><span class="spec-v">5,000</span><span class="spec-u">images</span></div>
-    <div class="spec"><span class="spec-k">Dimensions</span><span class="spec-v">120 × 180</span><span class="spec-u">centimetres, framed</span></div>
-    <div class="spec"><span class="spec-k">Weight</span><span class="spec-v">60</span><span class="spec-u">kilograms</span></div>
-    <div class="spec"><span class="spec-k">Price</span><span class="spec-v">On request</span><span class="spec-u">unique work</span></div>
-  </section>
-
-  <section class="cols band">
-    <div class="about">
-      <div class="eyebrow">The artist</div>
-      <p>A short paragraph in the artist's own voice: the practice, where the images are gathered, why the mosaic form. Placeholder text until the real words arrive.</p>
-      <div class="portrait"><div class="ph"></div><small>portrait<br>replace with images/portrait.jpg</small></div>
-    </div>
-    <div class="acquire" id="acquire">
-      <div class="eyebrow">Acquire</div>
-      <div class="pitch">The work is available. Price on request, shipping and installation arranged.</div>
-      <a class="btn" href="mailto:studio@doriengayrosenthall.com?subject=Enquiry%20%E2%80%94%20One%20Vision%2C%205%2C000%20Stories"><span>Request the price</span><span>&rarr;</span></a>
-      <div class="contact">studio@doriengayrosenthall.com<br>Viewings by appointment.</div>
+  <section>
+    <div class="shell intro-grid">
+      <p class="lede">Five thousand photographs, each complete in itself, assembled until they resolve into a single image.</p>
+      <dl class="sheet">
+        <div class="eyebrow accent">Specification</div>
+        <div class="row"><dt>Made of</dt><dd>5,000 images</dd></div>
+        <div class="row"><dt>Dimensions</dt><dd>120 × 180 cm</dd></div>
+        <div class="row"><dt>Framing</dt><dd>Polished steel</dd></div>
+        <div class="row"><dt>Weight</dt><dd>60 kg</dd></div>
+        <div class="row"><dt>Edition</dt><dd>Unique</dd></div>
+        <div class="row"><dt>Price</dt><dd>On request</dd></div>
+      </dl>
     </div>
   </section>
 
-  <section class="framed band">
-    <div class="framed-img zoom" data-zoom="5" data-size="220">
-      <img src="images/mosaic-framed.jpg" alt="The framed work, photographed">
-      <div class="lens"></div>
+  <section>
+    <div class="shell cols">
+      <div class="stack">
+        <div class="eyebrow">The artist</div>
+        <p class="body-copy">A short paragraph in the artist's own voice: the practice, where the images are gathered, why the mosaic form. Placeholder text until the real words arrive.</p>
+        <div class="portrait"><div class="ph"></div><small>portrait<br>replace with images/portrait.jpg</small></div>
+      </div>
+      <div class="stack" id="acquire">
+        <div class="eyebrow accent">Acquire</div>
+        <div class="pitch">The work is available. Price on request, shipping and installation arranged.</div>
+        <a class="btn" href="mailto:studio@doriengayrosenthall.com?subject=Enquiry%20%E2%80%94%20One%20Vision%2C%205%2C000%20Stories"><span>Request the price</span><span>&rarr;</span></a>
+        <div class="contact">studio@doriengayrosenthall.com<br>Viewings by appointment.</div>
+      </div>
     </div>
-    <div class="framed-text">
-      <div class="eyebrow accent">The work, framed</div>
-      <div class="pitch">Photographed as it hangs, in a polished steel frame.</div>
-      <p>Framing and glazing are included. At 120 × 180 cm and 60 kg the piece needs two people and a wall fixing rated accordingly; installation can be arranged.</p>
-      <small>Hover to magnify</small>
+  </section>
+
+  <section>
+    <div class="shell framed">
+      <div class="framed-img zoom" data-zoom="5" data-size="220">
+        <img src="images/mosaic-framed.jpg" alt="The framed work, photographed">
+        <div class="lens"></div>
+      </div>
+      <div class="stack">
+        <div class="eyebrow accent">The work, framed</div>
+        <div class="pitch">Photographed as it hangs, in a polished steel frame.</div>
+        <p class="body-copy">Framing and glazing are included. At 120 × 180 cm and 60 kg the piece needs two people and a wall fixing rated accordingly; installation can be arranged.</p>
+        <small class="eyebrow">Hover to magnify</small>
+      </div>
     </div>
   </section>
 </main>
 
 <footer>
-  <span>© 2026 Dorien Gay Rosenthall</span>
-  <span>Amsterdam</span>
+  <div class="shell">
+    <span>© 2026 Dorien Gay Rosenthall</span>
+    <span>Amsterdam</span>
+  </div>
 </footer>
 
 <script>
@@ -171,8 +189,7 @@
     var img  = box.querySelector('img'),
         lens = box.querySelector('.lens'),
         ZOOM = parseFloat(box.dataset.zoom) || 6,
-        SIZE = parseFloat(box.dataset.size) || 240,
-        POSY = box.dataset.posY === undefined ? 0.5 : parseFloat(box.dataset.posY);
+        SIZE = parseFloat(box.dataset.size) || 240;
 
     box.addEventListener('mousemove', function (e) {
       var r = box.getBoundingClientRect(),
@@ -182,7 +199,7 @@
           nh = img.naturalHeight || r.height,
           cover = Math.max(r.width / nw, r.height / nh),
           offX = (r.width - nw * cover) / 2,
-          offY = (r.height - nh * cover) * POSY;
+          offY = (r.height - nh * cover) / 2;
 
       lens.style.width = lens.style.height = SIZE + 'px';
       lens.style.left = (x - SIZE / 2) + 'px';
